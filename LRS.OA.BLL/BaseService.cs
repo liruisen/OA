@@ -72,7 +72,7 @@ namespace LRS.OA.BLL
         public bool DeleteEntity(T entity)
         {
             CurrentDal.DeleteEntity(entity);
-            return currentDBSession.saveChanges();
+            return true;
         } 
         #endregion
 
@@ -85,8 +85,9 @@ namespace LRS.OA.BLL
         public bool EditEntity(T entity)
         {
             CurrentDal.EditEntity(entity);
-            return currentDBSession.saveChanges();
-        } 
+            return true;
+
+        }
         #endregion
 
         #region 添加数据
@@ -98,7 +99,7 @@ namespace LRS.OA.BLL
         public T AddEntity(T entity)
         {
             CurrentDal.AddEntity(entity);
-            currentDBSession.saveChanges();
+            
             return entity;
         } 
         #endregion

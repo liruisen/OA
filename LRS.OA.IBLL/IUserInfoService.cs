@@ -12,5 +12,11 @@ namespace LRS.OA.IBLL
 {
     public interface IUserInfoService:IBaseService<UserInfo>
     {
+        /// <summary>
+        /// 批量删除
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        bool DeleteEntities(List<int> list);
     }
 }

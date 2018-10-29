@@ -41,7 +41,7 @@
                 height: 400,
                 fitColumns: true, //列自适应
                 nowrap: false,
-                idField: 'ID',//主键列的列明
+                idField: 'Id',//主键列的列明
                 loadMsg: '正在加载用户的信息...',
                 pagination: true,//是否有分页
                 singleSelect: false,//是否单行选择
@@ -51,7 +51,7 @@
                 queryParams: pars,//往后台传递参数
                 columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-					{ field: 'ID', title: '编号', width: 80 },
+					{ field: 'Id', title: '编号', width: 80 },
 					{ field: 'UName', title: '姓名', width: 120 },
                      { field: 'UPwd', title: '密码', width: 120 },
                       { field: 'Remark', title: '备注', width: 120 },
@@ -113,7 +113,7 @@
                 $.messager.alert("提示", "请选择要分配权限的用户", "error");
                 return;
             }
-            $("#setUserActionFrame").attr("src", "/UserInfo/ShowUserAction/?userId=" + rows[0].ID);
+            $("#setUserActionFrame").attr("src", "/UserInfo/ShowUserAction/?userId=" + rows[0].Id);
             $("#setUsrActionDiv").css("display", "block");
             $('#setUsrActionDiv').dialog({
                 title: '为用户分配权限数据',
@@ -147,7 +147,7 @@
                 $.messager.alert("提示", "请选择要分配角色的用户", "error");
                 return;
             }
-            $("#setUserRoleFrame").attr("src", "/UserInfo/ShowUserRoleInfo/?id=" + rows[0].ID);
+            $("#setUserRoleFrame").attr("src", "/UserInfo/ShowUserRoleInfo/?id=" + rows[0].Id);
             $("#setUsrRoleDiv").css("display", "block");
             $('#setUsrRoleDiv').dialog({
                 title: '为用户分配角色数据',
@@ -183,6 +183,9 @@
         //删除数据
         function deleteInfo() {
             var rows = $('#tt').datagrid('getSelections');//获取所选择的行
+            //console.dir(rows);
+            //console.log( rows[0].Id)
+
             if (!rows || rows.length == 0) {
                 //alert("请选择要修改的商品！");
                 $.messager.alert("提醒", "请选择要删除的记录!", "error");
@@ -194,10 +197,11 @@
                     var rowsLength = rows.length;
                     var strId = "";
                     for (var i = 0; i < rowsLength; i++) {
-                        strId = strId + rows[i].ID + ",";//1,2,3,
+                        strId = strId + rows[i].Id + ",";//1,2,3,
                     }
                     //去掉最后一个逗号.
                     strId = strId.substr(0, strId.length - 1);
+                    //alert(strId);
                     //将获取的要删除的记录的ID值发送到服务端.
                     $.post("/UserInfo/DeleteUserInfo", { "strId": strId }, function (data) {
                         if (data == "ok") {

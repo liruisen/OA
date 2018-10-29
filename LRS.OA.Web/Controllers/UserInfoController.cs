@@ -16,6 +16,7 @@ namespace LRS.OA.Web.Controllers
         {
             return View();
         }
+
         #region 获取用户列表数据
 
         public ActionResult GetUserInfoList()
@@ -37,7 +38,29 @@ namespace LRS.OA.Web.Controllers
                            SubTime=u.SubTime
                        };
             return Json(new { rows = temp, total = totalCount });
-        } 
+        }
+        #endregion
+
+        #region 批量删除
+        public ActionResult DeleteUserInfo()
+        {
+            string strId = Request["strId"];
+            string[] strIds = strId.Split(',');
+            List<int> list = new List<int>();
+            foreach (string id in strIds)
+            {
+                list.Add(Convert.ToInt32(id));
+            }
+            //将list集合存储的要删除的记录的编号传递到业务层
+            if (UserInfoService.DeleteEntities(list))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+        }
         #endregion
     }
 }

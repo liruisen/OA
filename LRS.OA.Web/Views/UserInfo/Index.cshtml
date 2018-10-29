@@ -14,6 +14,8 @@
     <script src="~/Scripts/jquery.easyui.min.js"></script>
     <script src="~/Scripts/easyui-lang-zh_CN.js"></script>
     <script src="~/Scripts/datapattern.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#addDiv").css("display", "none");
@@ -51,16 +53,16 @@
                 queryParams: pars,//往后台传递参数
                 columns: [[//c.UserName, c.UserPass, c.Email, c.RegTime
                     { field: 'ck', checkbox: true, align: 'left', width: 50 },
-					{ field: 'Id', title: '编号', width: 80 },
-					{ field: 'UName', title: '姓名', width: 120 },
-                     { field: 'UPwd', title: '密码', width: 120 },
-                      { field: 'Remark', title: '备注', width: 120 },
-					{
-					    field: 'SubTime', title: '时间', width: 80, align: 'right',
-					    formatter: function (value, row, index) {
-					        return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
-					    }
-					}
+                    { field: 'Id', title: '编号', width: 80 },
+                    { field: 'UName', title: '姓名', width: 120 },
+                    { field: 'UPwd', title: '密码', width: 120 },
+                    { field: 'Remark', title: '备注', width: 120 },
+                    {
+                        field: 'SubTime', title: '时间', width: 80, align: 'right',
+                        formatter: function (value, row, index) {
+                            return (eval(value.replace(/\/Date\((\d+)\)\//gi, "new Date($1)"))).pattern("yyyy-M-d");
+                        }
+                    }
                 ]],
                 toolbar: [{
                     id: 'btnDelete',
@@ -344,7 +346,7 @@
             var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
             return date.getFullYear() + "-" + month + "-" + currentDate;
         }
-        
+
     </script>
 
 
@@ -352,7 +354,35 @@
 </head>
 <body>
     <div>
-        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table> 
+        <table id="tt" style="width: 700px;" title="标题，可以使用代码进行初始化，也可以使用这种属性的方式" iconcls="icon-edit"></table>
+    </div>
+    <!-------------------------------添加数据------------------------->
+    <!--------------添加数据---------------------->
+    <div id="addDiv">
+        @using (Ajax.BeginForm("AddUserInfo", "UserInfo", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAdd" }, new { id = "addForm" }))
+        {
+            <table>
+                <tr><td>用户名</td><td><input type="text" name="UName" /></td></tr>
+                <tr><td>密码</td><td><input type="password" name="UPwd" /></td></tr>
+                <tr><td>备注</td><td><input type="text" name="Remark" /></td></tr>
+                <tr><td>排序</td><td><input type="text" name="Sort" /></td></tr>
+            </table>
+        }
+    </div>
+    <!--------------修改数据---------------------->
+    <div id="editDiv">
+        @using (Ajax.BeginForm("EditUserInfo", "UserInfo", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterEdit" }, new { id = "editForm" }))
+        {
+            <input type="hidden" name="ID" id="txtId" />
+            <input type="hidden" name="SubTime" id="txtSubTime" />
+            <input type="hidden" name="DelFlag" id="txtDelFlag" />
+            <table>
+                <tr><td>用户名</td><td><input type="text" name="UName" id="txtUName" /></td></tr>
+                <tr><td>密码</td><td><input type="text" name="UPwd" id="txtUPwd" /></td></tr>
+                <tr><td>备注</td><td><input type="text" name="Remark" id="txtRemark" /></td></tr>
+                <tr><td>排序</td><td><input type="text" name="Sort" id="txtSort" /></td></tr>
+            </table>
+        }
     </div>
 </body>
 </html>

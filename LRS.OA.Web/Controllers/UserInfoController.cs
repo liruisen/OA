@@ -1,4 +1,5 @@
-﻿using LRS.OA.Model.EnumType;
+﻿using LRS.OA.Model;
+using LRS.OA.Model.EnumType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,6 +61,18 @@ namespace LRS.OA.Web.Controllers
             {
                 return Content("error");
             }
+        }
+        #endregion
+
+        #region 添加用户
+        public ActionResult AddUserInfo(UserInfo userInfo)
+        {
+            userInfo.DelFlag = 0;
+            userInfo.ModifiedOn = DateTime.Now;
+            userInfo.SubTime = DateTime.Now;
+            UserInfoService.AddEntity(userInfo);
+            return Content("ok");
+
         }
         #endregion
     }

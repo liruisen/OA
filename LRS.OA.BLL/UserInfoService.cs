@@ -28,7 +28,7 @@ namespace LRS.OA.BLL
             }
             return this.currentDBSession.saveChanges();
         }
-
+        
         public override void SetCurrentDal()
         {
             CurrentDal = this.currentDBSession.UserInfoDal;

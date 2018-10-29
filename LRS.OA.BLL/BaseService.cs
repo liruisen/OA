@@ -72,7 +72,7 @@ namespace LRS.OA.BLL
         public bool DeleteEntity(T entity)
         {
             CurrentDal.DeleteEntity(entity);
-            return true;
+            return this.currentDBSession.saveChanges();
         } 
         #endregion
 
@@ -85,7 +85,8 @@ namespace LRS.OA.BLL
         public bool EditEntity(T entity)
         {
             CurrentDal.EditEntity(entity);
-            return true;
+            return this.currentDBSession.saveChanges();
+
 
         }
         #endregion
@@ -99,8 +100,14 @@ namespace LRS.OA.BLL
         public T AddEntity(T entity)
         {
             CurrentDal.AddEntity(entity);
-            
-            return entity;
+            if (this.currentDBSession.saveChanges())
+            {
+                return entity;
+            }
+            else
+            {
+                return null;
+            }
         } 
         #endregion
 

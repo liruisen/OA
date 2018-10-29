@@ -86,8 +86,6 @@ namespace LRS.OA.BLL
         {
             CurrentDal.EditEntity(entity);
             return this.currentDBSession.saveChanges();
-
-
         }
         #endregion
 

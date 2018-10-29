@@ -75,5 +75,28 @@ namespace LRS.OA.Web.Controllers
 
         }
         #endregion
+        #region 展示用户信息
+        public ActionResult ShowEditInfo()
+        {
+            int id =Convert.ToInt32(Request["id"]) ;
+            var userInfo = UserInfoService.LoadEntities(u => u.ID == id).FirstOrDefault();
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
+            //return Json(new { data = userInfo });
+        }
+        #endregion
+        #region 修改用户信息
+        public ActionResult EditUserInfo(UserInfo userInfo)
+        {
+            userInfo.ModifiedOn = DateTime.Now;
+            if (UserInfoService.EditEntity(userInfo))
+            {
+                return Content("ok");
+            }
+            else
+            {
+                return Content("error");
+            }
+        }
+        #endregion
     }
 }

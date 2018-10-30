@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <object name="UserInfoService" type="LRS.OA.BLL.UserInfoService,LRS.OA.BLL" singleton="false">
+  </object>
+</objects>

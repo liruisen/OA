@@ -12,7 +12,7 @@ namespace LRS.OA.Web.Controllers
     {
         //
         // GET: /UserInfo/
-        IBLL.IUserInfoService UserInfoService = new BLL.UserInfoService();
+        IBLL.IUserInfoService UserInfoService { get; set; }
         public ActionResult Index()
         {
             return View();

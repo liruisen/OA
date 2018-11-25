@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using log4net;
 using LRS.OA.Web.Models;
 using Spring.Web.Mvc;
 namespace LRS.OA.Web
@@ -19,6 +20,9 @@ namespace LRS.OA.Web
     {
         protected void Application_Start()
         {
+            //log4net配置
+            log4net.Config.XmlConfigurator.Configure();                 //读取配置文件中，关于log4net的配置信息
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -40,8 +44,10 @@ namespace LRS.OA.Web
                         Exception ex = MyExceptionAttribute.ExceptionQueue.Dequeue();
                         if (ex!=null)
                         {
-                            string fileName = DateTime.Now.ToString("yyyyMMddHHmm");
-                            File.AppendAllText(filePath + fileName + ".txt",ex.ToString(),System.Text.Encoding.UTF8);
+                            //string fileName = DateTime.Now.ToString("yyyyMMddHHmm");
+                            //File.AppendAllText(filePath + fileName + ".txt",ex.ToString(),System.Text.Encoding.UTF8);
+                            ILog logger = LogManager.GetLogger("errorMsg");
+                            logger.Error(ex.ToString());
                         }
                         else
                         {

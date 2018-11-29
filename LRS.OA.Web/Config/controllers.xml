@@ -3,4 +3,7 @@
   <object  type="LRS.OA.Web.Controllers.UserInfoController,LRS.OA.Web" singleton="false">
     <property name="UserInfoService"  ref="UserInfoService"/>
   </object>
+  <object  type="LRS.OA.Web.Controllers.LoginController,LRS.OA.Web" singleton="false">
+    <property name="userInfoService"  ref="UserInfoService"/>
+  </object>
 </objects>

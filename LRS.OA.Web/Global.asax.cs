@@ -33,16 +33,16 @@ namespace LRS.OA.Web
 
 
             //开启一个线程，扫描异常信息队列
-            string filePath = Server.MapPath("/Log/");
+            //string filePath = Server.MapPath("/Log/");
             ThreadPool.QueueUserWorkItem((a) =>
             {
                 while (true)
                 {
-                    if (MyExceptionAttribute.ExceptionQueue.Count>0)
+                    if (MyExceptionAttribute.ExceptionQueue.Count > 0)
                     {
                         //判断队列中是否有数据
                         Exception ex = MyExceptionAttribute.ExceptionQueue.Dequeue();
-                        if (ex!=null)
+                        if (ex != null)
                         {
                             //string fileName = DateTime.Now.ToString("yyyyMMddHHmm");
                             //File.AppendAllText(filePath + fileName + ".txt",ex.ToString(),System.Text.Encoding.UTF8);
@@ -60,7 +60,8 @@ namespace LRS.OA.Web
                         Thread.Sleep(3000);
                     }
                 }
-            },filePath);
+            });
+            //},filePath);
         }
     }
 }

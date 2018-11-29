@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace LRS.OA.Web.Controllers
 {
-    public class UserInfoController : Controller
+    public class UserInfoController : BaseController
     {
         //
         // GET: /UserInfo/
